@@ -1,4 +1,8 @@
 /* === NAVBAR STYLES === */
+.show-on-mobile {
+  display: none;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -417,8 +421,16 @@
     gap: 15px;
   }
 
-  .nav-actions > :not(.mobile-menu-toggle):not([href="/cart"]) {
+  .nav-actions > :not(.mobile-menu-toggle):not([href="/cart"]):not(.nav-back-to-dashboard-btn) {
     display: none !important;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .show-on-mobile {
+    display: inline !important;
   }
 
   .nav-logo-text {

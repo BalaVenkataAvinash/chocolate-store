@@ -365,6 +365,7 @@ export const Navbar: React.FC = () => {
               {(role === 'admin' || role === 'superadmin') && (
                 <button
                   onClick={() => navigate(role === 'admin' ? '/admin' : '/superadmin')}
+                  className="nav-back-to-dashboard-btn"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -391,7 +392,8 @@ export const Navbar: React.FC = () => {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  ← Back to {role === 'admin' ? 'Admin' : 'Superadmin'} Dashboard
+                  <span className="hide-on-mobile">← Back to {role === 'admin' ? 'Admin' : 'Superadmin'} Dashboard</span>
+                  <span className="show-on-mobile">← Dashboard</span>
                 </button>
               )}
 
