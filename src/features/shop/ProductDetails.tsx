@@ -99,20 +99,7 @@ export const ProductDetails: React.FC = () => {
     >
       <div className="container">
         {/* Back Link */}
-        <Link
-          to="/shop"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            color: 'var(--gold)',
-            fontSize: '0.9rem',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            marginBottom: '20px',
-            fontWeight: 600,
-          }}
-        >
+        <Link to="/shop" className="details-back-link">
           <ArrowLeft size={16} />
           Back to Boutique
         </Link>
@@ -198,7 +185,7 @@ export const ProductDetails: React.FC = () => {
           </div>
 
           {/* Info Details Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="details-info-column">
             <div>
               {product.badge && (
                 <span
@@ -230,7 +217,7 @@ export const ProductDetails: React.FC = () => {
               >
                 {product.name}
               </h1>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
+              <div className="details-meta-row" style={{ marginBottom: '15px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--gold)' }}>
                   <Star size={16} fill="currentColor" />
                   <span style={{ fontWeight: 600, color: 'var(--cream)', fontSize: '0.95rem' }}>
@@ -246,7 +233,7 @@ export const ProductDetails: React.FC = () => {
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '15px', marginBottom: '20px' }}>
+              <div className="details-price-row" style={{ marginBottom: '20px' }}>
                 <span style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--cream)' }}>
                   ₹{product.price.toLocaleString()}
                 </span>
@@ -263,13 +250,13 @@ export const ProductDetails: React.FC = () => {
                 )}
               </div>
 
-              <p style={{ color: 'var(--beige)', lineHeight: 1.6, fontSize: '1rem', marginBottom: '30px' }}>
+              <p className="details-description">
                 {product.description}
               </p>
             </div>
 
             {/* Quantity Selector & Wishlist */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', paddingBottom: '30px', borderBottom: '1px solid var(--glass-border)' }}>
+            <div className="details-actions-row">
               <div
                 style={{
                   display: 'flex',
@@ -317,7 +304,7 @@ export const ProductDetails: React.FC = () => {
             </div>
 
             {/* Action buttons */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="details-action-buttons">
               <div style={{ display: 'flex', gap: '15px' }}>
                 <Button variant="gold" size="lg" fullWidth onClick={handleAddToCart} glow>
                   <ShoppingBag size={18} />

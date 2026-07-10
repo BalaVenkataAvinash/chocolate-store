@@ -343,15 +343,7 @@ export const ShopPage: React.FC = () => {
 
             {/* List / Grid Display */}
             {currentItems.length === 0 ? (
-              <div
-                style={{
-                  textAlign: 'center',
-                  padding: '80px 20px',
-                  background: 'rgba(var(--dark-chocolate-rgb), 0.2)',
-                  borderRadius: '8px',
-                  border: '1px solid var(--glass-border)',
-                }}
-              >
+              <div className="shop-empty-state">
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--cream)', marginBottom: '10px' }}>
                   No Products Found
                 </h3>
@@ -364,20 +356,14 @@ export const ShopPage: React.FC = () => {
               </div>
             ) : isGridView ? (
               /* Grid Layout */
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                  gap: '30px',
-                }}
-              >
+              <div className="shop-product-grid">
                 {currentItems.map((prod) => (
                   <Card key={prod.id} product={prod} />
                 ))}
               </div>
             ) : (
               /* List Layout */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="shop-list-layout">
                 {currentItems.map((prod) => {
                   const inWish = wishlist.some((p) => p.id === prod.id);
                   return (

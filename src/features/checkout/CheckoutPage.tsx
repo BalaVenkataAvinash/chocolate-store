@@ -75,26 +75,13 @@ export const CheckoutPage: React.FC = () => {
       initial="initial"
       animate="animate"
       exit="exit"
-      style={{
-        paddingTop: '120px',
-        minHeight: '100vh',
-        background: 'var(--gradient-hero)',
-        paddingBottom: '60px',
-      }}
+      className="checkout-page"
     >
       <div className="container">
         {/* Checkout Header steps indicator (Only for steps 1-5) */}
         {activeStep <= 5 && (
-          <div style={{ marginBottom: '40px' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '15px',
-                marginBottom: '20px',
-              }}
-            >
+          <div className="checkout-steps">
+            <div className="checkout-step-list">
               {stepsHeader.map((st) => (
                 <div
                   key={st.num}
@@ -142,7 +129,7 @@ export const CheckoutPage: React.FC = () => {
         )}
 
         {/* Step Content panels */}
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div className="checkout-panel">
           <AnimatePresence mode="wait">
             {/* STEP 1: REVIEW ITEMS */}
             {activeStep === 1 && (
@@ -287,16 +274,10 @@ export const CheckoutPage: React.FC = () => {
                     <div
                       key={opt.title}
                       onClick={() => setDeliveryOption(opt.title)}
+                      className="checkout-option-card"
                       style={{
-                        padding: '16px 20px',
-                        borderRadius: '4px',
                         background: deliveryOption === opt.title ? 'rgba(201, 168, 76, 0.05)' : 'rgba(0, 0, 0, 0.2)',
                         border: deliveryOption === opt.title ? '1px solid var(--gold)' : '1px solid var(--glass-border)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s',
                       }}
                     >
                       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>

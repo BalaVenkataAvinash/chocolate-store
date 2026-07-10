@@ -111,26 +111,14 @@ export const CartPage: React.FC = () => {
           Your Chocolates Cart
         </h1>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 360px',
-            gap: '40px',
-            alignItems: 'flex-start',
-          }}
-        >
+        <div className="cart-layout">
           {/* Cart items list */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="cart-items-list">
             {cart.map((item) => (
               <div
                 key={item.product.id}
-                className="glass-panel"
+                className="glass-panel cart-item-card"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '100px 1fr auto auto',
-                  alignItems: 'center',
-                  gap: '20px',
-                  padding: '20px',
                   border: '1px solid var(--glass-border)',
                 }}
               >
@@ -210,9 +198,8 @@ export const CartPage: React.FC = () => {
 
           {/* Pricing Summary Sidepanel */}
           <aside
-            className="glass-panel"
+            className="glass-panel cart-summary"
             style={{
-              padding: '30px',
               border: '1px solid var(--glass-border)',
               background: 'rgba(var(--dark-chocolate-rgb), 0.4)',
             }}

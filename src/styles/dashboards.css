@@ -7,6 +7,57 @@
   padding-bottom: 60px;
 }
 
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding-top: 90px;
+    padding-bottom: 40px;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+
+  .dashboard-container {
+    gap: 16px;
+    padding: 20px 0 0;
+  }
+
+  .dashboard-menu {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .dashboard-menu-btn {
+    min-width: max-content;
+    white-space: nowrap;
+    font-size: 0.82rem;
+    padding: 10px 12px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+
+  .dashboard-grid-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stat-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-card {
+    padding: 14px;
+  }
+
+  .dashboard-menu-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 .dashboard-container {
   display: grid;
   grid-template-columns: 280px 1fr;

@@ -51,6 +51,7 @@ button {
 .container {
   width: var(--container-width);
   margin: 0 auto;
+  padding-inline: clamp(16px, 3vw, 24px);
 }
 
 .section-label {
@@ -220,5 +221,157 @@ button {
 @media (min-width: 640px) {
   .collection-products-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    font-size: 0.98rem;
+  }
+
+  .container {
+    width: min(94%, 1400px);
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 7vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+}
+
+.cart-page,
+.checkout-page {
+  padding-top: 120px;
+  min-height: 100vh;
+  background: var(--gradient-hero);
+  padding-bottom: 60px;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-item-card {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.cart-summary {
+  padding: 30px;
+}
+
+.checkout-steps {
+  margin-bottom: 40px;
+}
+
+.checkout-step-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.checkout-panel {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.checkout-card {
+  padding: 30px;
+}
+
+.checkout-grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.checkout-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.checkout-option-card {
+  padding: 16px 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkout-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-page,
+  .checkout-page {
+    padding-top: 92px;
+    padding-bottom: 40px;
+  }
+
+  .cart-item-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary,
+  .checkout-card {
+    padding: 20px;
+  }
+
+  .checkout-step-list {
+    flex-direction: column;
+  }
+
+  .checkout-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-actions {
+    flex-direction: column-reverse;
+  }
+
+  .checkout-actions > button,
+  .checkout-actions > a {
+    width: 100%;
   }
 }

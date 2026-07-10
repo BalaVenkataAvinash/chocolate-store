@@ -47,7 +47,7 @@ const AppContent: React.FC = () => {
   const showNavAndFooter = !isAuthRoute && !isDashboardRoute;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100vw' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
       <ScrollToTop />
       {showNavAndFooter && <Navbar />}
       

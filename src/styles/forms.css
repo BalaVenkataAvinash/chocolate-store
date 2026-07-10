@@ -1,13 +1,13 @@
 /* === AUTH & FORMS STYLES === */
 .auth-page {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--gradient-hero);
   position: relative;
-  padding: 40px 20px;
+  padding: 100px 20px 40px;
 }
 
 .auth-card {
@@ -143,4 +143,39 @@
 .auth-card .luxury-input:focus {
   border-color: rgba(255, 255, 255, 0.9) !important;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.25) !important;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 92px 14px 32px;
+    align-items: flex-start;
+  }
+
+  .auth-card {
+    padding: 24px 16px;
+    max-width: 100%;
+  }
+
+  .back-to-store-link {
+    position: static;
+    margin-bottom: 16px;
+  }
+
+  .social-login-group {
+    grid-template-columns: 1fr;
+  }
+
+  .form-checkbox-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .auth-title {
+    font-size: 1.55rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.95rem;
+  }
 }
