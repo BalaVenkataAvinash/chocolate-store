@@ -136,6 +136,15 @@ export const SuperadminDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('enterprise');
+  const [isMobileGrid, setIsMobileGrid] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileGrid(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [analyticsSubTab, setAnalyticsSubTab] = useState<'total' | 'online' | 'offline'>('total');
 
   // --- Dynamic local state for stock/units sold to keep them interactive for superadmin ---
@@ -708,7 +717,7 @@ export const SuperadminDashboard: React.FC = () => {
             </div>
 
             {/* Quick overview layout */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', marginTop: '30px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '30px', marginTop: '30px' }}>
               {/* Financial source pie chart */}
               <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)', display: 'flex', flexDirection: 'column' }}>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--cream)', marginBottom: '15px' }}>
@@ -798,7 +807,7 @@ export const SuperadminDashboard: React.FC = () => {
             </div>
 
             {/* Income summaries */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
               <div className="glass-panel" style={{ padding: '20px' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Income</span>
                 <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '8px 0 0 0' }}>₹{totalRevenue.toLocaleString('en-IN')}</h3>
@@ -890,7 +899,7 @@ export const SuperadminDashboard: React.FC = () => {
             {analyticsSubTab === 'total' && (
               <div>
                 {/* Volumes & Metrics breakdown */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : 'repeat(3, 1fr)', gap: '20px', marginBottom: '30px' }}>
                   <div className="glass-panel" style={{ padding: '20px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>Combined Sales Volume</span>
                     <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '8px 0 0 0' }}>{totalUnitsSold.toLocaleString()} units</h3>
@@ -957,7 +966,8 @@ export const SuperadminDashboard: React.FC = () => {
                     </Button>
                   </div>
                   
-                  <table className="admin-table">
+                  <div className="admin-table-wrapper">
+                    <table className="admin-table">
                     <thead>
                       <tr>
                         <th>Product Name</th>
@@ -1055,7 +1065,8 @@ export const SuperadminDashboard: React.FC = () => {
                         );
                       })}
                     </tbody>
-                  </table>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}
@@ -1063,7 +1074,7 @@ export const SuperadminDashboard: React.FC = () => {
             {/* SUB-TAB 2: ONLINE SALES LEDGER */}
             {analyticsSubTab === 'online' && (
               <div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
                   <div className="glass-panel" style={{ padding: '20px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--rose-gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>Online Revenue</span>
                     <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '8px 0 0 0' }}>₹{totalOnlineRevenue.toLocaleString('en-IN')}</h3>
@@ -1147,7 +1158,7 @@ export const SuperadminDashboard: React.FC = () => {
             {/* SUB-TAB 3: OFFLINE SALES LEDGER */}
             {analyticsSubTab === 'offline' && (
               <div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
                   <div className="glass-panel" style={{ padding: '20px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>Boutique Revenue</span>
                     <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '8px 0 0 0' }}>₹{totalOfflineRevenue.toLocaleString('en-IN')}</h3>
@@ -1243,7 +1254,7 @@ export const SuperadminDashboard: React.FC = () => {
                     <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--cream)', marginBottom: '20px' }}>
                       Add New Administrator Account
                     </h3>
-                    <form onSubmit={handleAddAdmin} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr) auto', gap: '20px', alignItems: 'end' }}>
+                    <form onSubmit={handleAddAdmin} style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : 'repeat(3, 1fr) auto', gap: '20px', alignItems: 'end' }}>
                       <Input
                         label="Full Name"
                         required
@@ -1277,7 +1288,8 @@ export const SuperadminDashboard: React.FC = () => {
             </AnimatePresence>
 
             <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)' }}>
-              <table className="admin-table">
+              <div className="admin-table-wrapper">
+                <table className="admin-table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -1322,7 +1334,8 @@ export const SuperadminDashboard: React.FC = () => {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -1338,7 +1351,7 @@ export const SuperadminDashboard: React.FC = () => {
             </h1>
 
             {/* Split layout: Customers Inspector List & Active Orders Status Editor */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
               
               {/* Customer Inspection List */}
               <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)' }}>
@@ -1570,7 +1583,8 @@ export const SuperadminDashboard: React.FC = () => {
                         {getCustomerOrders(inspectedCustomer.email).length === 0 ? (
                           <p style={{ color: 'var(--grey-light)', fontSize: '0.9rem', fontStyle: 'italic' }}>No products purchased.</p>
                         ) : (
-                          <table className="admin-table">
+                          <div className="admin-table-wrapper">
+                            <table className="admin-table">
                             <thead>
                               <tr>
                                 <th>Item purchased</th>
@@ -1618,7 +1632,8 @@ export const SuperadminDashboard: React.FC = () => {
                                 ));
                               })()}
                             </tbody>
-                          </table>
+                            </table>
+                          </div>
                         )}
                       </div>
                     </div>

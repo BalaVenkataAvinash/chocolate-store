@@ -17,7 +17,8 @@ import {
   UploadCloud,
   Trash2,
   Plus,
-  X
+  X,
+  Menu
 } from 'lucide-react';
 import { useApp } from '../../app/providers';
 import { Button } from '../../components/ui/Button';
@@ -74,6 +75,16 @@ export const CustomerDashboard: React.FC = () => {
   }, [role, navigate]);
 
   const [activeTab, setActiveTab] = useState<CustomerTab>('overview');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobileGrid, setIsMobileGrid] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileGrid(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Profile Form state
   const [profileForm, setProfileForm] = useState({
@@ -192,10 +203,38 @@ export const CustomerDashboard: React.FC = () => {
           </div>
         </div>
 
+        {/* Toggle Button for Mobile Dashboard Menu */}
+        <button 
+          className="dashboard-mobile-trigger"
+          onClick={() => setIsSidebarOpen(true)}
+          style={{ marginTop: '20px' }}
+        >
+          <Menu size={18} />
+          <span>Dashboard Menu</span>
+        </button>
+
         {/* Dashboard Grid container */}
         <div className="dashboard-container">
+          {/* Mobile Overlay Backdrop */}
+          <div 
+            className={`admin-sidebar-backdrop ${isSidebarOpen ? 'open' : ''}`}
+            onClick={() => setIsSidebarOpen(false)}
+            style={{ zIndex: 119 }}
+          />
+
           {/* Left Menu bar */}
-          <aside className="dashboard-menu">
+          <aside className={`dashboard-menu ${isSidebarOpen ? 'open' : ''}`}>
+            {/* Mobile Close Button inside Drawer */}
+            <div style={{ display: 'none', justifyContent: 'flex-end', marginBottom: '15px' }} className="mobile-close-container">
+              <button 
+                onClick={() => setIsSidebarOpen(false)} 
+                style={{ color: 'var(--rose-gold)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase' }}
+              >
+                <span>Close</span>
+                <X size={18} />
+              </button>
+            </div>
+
             {[
               { id: 'overview', label: 'Overview', icon: LayoutDashboard },
               { id: 'profile', label: 'My Profile', icon: User },
@@ -212,7 +251,10 @@ export const CustomerDashboard: React.FC = () => {
               return (
                 <button
                   key={menuItem.id}
-                  onClick={() => setActiveTab(menuItem.id as CustomerTab)}
+                  onClick={() => {
+                    setActiveTab(menuItem.id as CustomerTab);
+                    setIsSidebarOpen(false);
+                  }}
                   className={`dashboard-menu-btn ${activeTab === menuItem.id ? 'active' : ''}`}
                   style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
                 >
@@ -571,10 +613,10 @@ export const CustomerDashboard: React.FC = () => {
                       form.reset();
                       setShowAddAddressForm(false);
                       alert('New address saved successfully.');
-                    }} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                    }} style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1fr 1fr', gap: '15px' }}>
                       <Input label="Address Label (e.g. Home, Office)" name="title" required />
                       <Input label="Recipient Full Name" name="name" required />
-                      <div style={{ gridColumn: 'span 2' }}>
+                      <div style={{ gridColumn: isMobileGrid ? 'span 1' : 'span 2' }}>
                         <Input label="Street Address" name="street" required />
                       </div>
                       <Input label="City" name="city" required />
@@ -582,14 +624,14 @@ export const CustomerDashboard: React.FC = () => {
                       <Input label="ZIP / Postal Code" name="zip" required />
                       <Input label="Phone Number" name="phone" required type="tel" />
                       
-                      <div style={{ gridColumn: 'span 2', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '10px' }}>
+                      <div style={{ gridColumn: isMobileGrid ? 'span 1' : 'span 2', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '10px' }}>
                         <input type="checkbox" name="isDefault" id="is-default-address" style={{ accentColor: 'var(--gold)' }} />
                         <label htmlFor="is-default-address" style={{ color: 'var(--cream)', fontSize: '0.85rem', cursor: 'pointer' }}>
                           Make this my default shipping address
                         </label>
                       </div>
 
-                      <div style={{ gridColumn: 'span 2', marginTop: '10px' }}>
+                      <div style={{ gridColumn: isMobileGrid ? 'span 1' : 'span 2', marginTop: '10px' }}>
                         <Button variant="gold" type="submit" glow>
                           Save Address
                         </Button>
@@ -831,7 +873,7 @@ export const CustomerDashboard: React.FC = () => {
                       Personal Demographics
                     </h3>
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1fr 1fr', gap: '20px' }}>
                       <Input
                         label="Date of Birth"
                         type="date"
@@ -920,7 +962,7 @@ export const CustomerDashboard: React.FC = () => {
                   Help & Support Center
                 </h2>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
                   {/* Raise Complaint Form */}
                   <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)' }}>
                     <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '15px' }}>

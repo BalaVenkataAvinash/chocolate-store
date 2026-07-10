@@ -433,6 +433,45 @@ export const Navbar: React.FC = () => {
               overflow: 'hidden',
             }}
           >
+                <div className="mobile-nav-actions">
+                  {role === 'guest' ? (
+                    <>
+                      <Link to="/login" className="mobile-nav-action-btn" onClick={() => setMobileMenuOpen(false)}>
+                        Sign In
+                      </Link>
+                      <Link to="/register" className="mobile-nav-action-btn" onClick={() => setMobileMenuOpen(false)}>
+                        Register
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/cart" className="mobile-nav-action-btn" onClick={() => setMobileMenuOpen(false)}>
+                        Cart ({cartCount})
+                      </Link>
+                      <Link to="/wishlist" className="mobile-nav-action-btn" onClick={() => setMobileMenuOpen(false)}>
+                        Wishlist ({wishlist.length})
+                      </Link>
+                      <Link to="/dashboard" className="mobile-nav-action-btn" onClick={() => setMobileMenuOpen(false)}>
+                        Dashboard
+                      </Link>
+                      <button 
+                        className="mobile-nav-action-btn" 
+                        onClick={() => {
+                          logout();
+                          setMobileMenuOpen(false);
+                        }}
+                        style={{
+                          background: 'rgba(231, 76, 60, 0.1)',
+                          border: '1px solid rgba(231, 76, 60, 0.3)',
+                          color: '#e74c3c',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Log Out
+                      </button>
+                    </>
+                  )}
+                </div>
             <ul style={{ padding: '20px 5%', display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <li style={{ listStyle: 'none' }}>
                 <Link to="/" style={{ color: 'var(--cream)', textTransform: 'uppercase', fontSize: '1rem' }} onClick={() => setMobileMenuOpen(false)}>Home</Link>

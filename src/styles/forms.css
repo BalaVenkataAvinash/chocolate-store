@@ -43,7 +43,7 @@
 
 .social-login-group {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 24px;
 }
@@ -121,17 +121,31 @@
 }
 
 .back-to-store-link {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   gap: 8px;
   color: var(--gold);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.back-to-store-link:hover {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: var(--gold);
+  color: var(--cream);
+  transform: translateX(-4px);
+  box-shadow: 0 4px 15px rgba(201, 168, 76, 0.15);
 }
 
 /* Brighter input borders inside authorization card */
@@ -156,14 +170,7 @@
     max-width: 100%;
   }
 
-  .back-to-store-link {
-    position: static;
-    margin-bottom: 16px;
-  }
 
-  .social-login-group {
-    grid-template-columns: 1fr;
-  }
 
   .form-checkbox-row {
     flex-direction: column;

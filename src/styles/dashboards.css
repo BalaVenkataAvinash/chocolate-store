@@ -20,20 +20,6 @@
     padding: 20px 0 0;
   }
 
-  .dashboard-menu {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 10px;
-  }
-
-  .dashboard-menu-btn {
-    min-width: max-content;
-    white-space: nowrap;
-    font-size: 0.82rem;
-    padding: 10px 12px;
-  }
-
   .dashboard-card {
     padding: 18px;
   }
@@ -80,6 +66,32 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* Customer Mobile Drawer under 992px */
+@media (max-width: 992px) {
+  .dashboard-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 120;
+    background: var(--dark-chocolate);
+    border-right: 1px solid var(--glass-border);
+    border-radius: 0;
+    padding: 30px 20px;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+  }
+
+  .dashboard-menu.open {
+    transform: translateX(0);
+  }
 }
 
 .dashboard-menu-btn {
@@ -141,6 +153,77 @@
 @media (max-width: 1024px) {
   .admin-workspace {
     margin-left: 0;
-    padding: 30px 15px;
+    padding: 85px 15px 30px 15px; /* Added top padding to prevent header overlap */
   }
 }
+
+/* Mobile Sidebar Drawer overlay and styles for Admin/Superadmin */
+.admin-mobile-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: var(--dark-chocolate);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 99;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 1024px) {
+  .admin-mobile-header {
+    display: flex;
+  }
+}
+
+.admin-sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 109;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.admin-sidebar-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dashboard-mobile-trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(var(--dark-chocolate-rgb), 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .dashboard-mobile-trigger {
+    display: flex;
+  }
+}
+

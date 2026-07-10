@@ -69,13 +69,7 @@ export const PopularProducts: React.FC = () => {
         </motion.div>
 
         {/* Card Grid with scroll reveal staggered delays */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, minmax(200px, 1fr))',
-            gap: '15px',
-          }}
-        >
+        <div className="popular-products-grid">
           {popularList.map((product, index) => (
             <motion.div
               key={product.id}

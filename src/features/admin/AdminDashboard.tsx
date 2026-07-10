@@ -50,6 +50,15 @@ export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('products');
+  const [isMobileGrid, setIsMobileGrid] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileGrid(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // --- Add Product Form Toggling ---
   const [showAddProductForm, setShowAddProductForm] = useState(false);
@@ -377,7 +386,7 @@ export const AdminDashboard: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: showAddProductForm ? '1.4fr 1.1fr' : '1fr',
+                gridTemplateColumns: showAddProductForm ? (isMobileGrid ? '1fr' : '1.4fr 1.1fr') : '1fr',
                 gap: '40px',
                 alignItems: 'flex-start',
               }}
@@ -466,7 +475,7 @@ export const AdminDashboard: React.FC = () => {
                         onChange={(e) => setNewProd({ ...newProd, category: e.target.value as any })}
                       />
 
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1fr 1fr', gap: '15px' }}>
                         <Input
                           label="Price (₹)"
                           type="number"
@@ -592,7 +601,8 @@ export const AdminDashboard: React.FC = () => {
             </h1>
 
             <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)' }}>
-              <table className="admin-table">
+              <div className="admin-table-wrapper">
+                <table className="admin-table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -704,7 +714,8 @@ export const AdminDashboard: React.FC = () => {
                     );
                   })}
                 </tbody>
-              </table>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -716,7 +727,7 @@ export const AdminDashboard: React.FC = () => {
               Boutique Offline Sales Ledger
             </h1>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '40px', alignItems: 'flex-start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '40px', alignItems: 'flex-start' }}>
               {/* Sales ledger list */}
               <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)', overflowX: 'auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
@@ -743,7 +754,7 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 )}
 
-                <div style={{ overflowY: 'auto', maxHeight: '450px' }}>
+                <div className="admin-table-wrapper" style={{ overflowY: 'auto', maxHeight: '450px' }}>
                   <table className="admin-table">
                     <thead>
                       <tr>
@@ -789,7 +800,7 @@ export const AdminDashboard: React.FC = () => {
                     }}
                   />
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '15px', alignItems: 'end', marginBottom: '15px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '15px', alignItems: 'end', marginBottom: '15px' }}>
                     <Input
                       label="Quantity"
                       type="number"
@@ -885,7 +896,7 @@ export const AdminDashboard: React.FC = () => {
             </h1>
 
             {/* Split layout: Customers Directory List & Inspector Panel */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : '1.2fr 1fr', gap: '30px', alignItems: 'flex-start' }}>
               
               {/* Customer Inspection List */}
               <div className="glass-panel" style={{ padding: '24px', border: '1px solid var(--glass-border)' }}>
@@ -1128,7 +1139,7 @@ export const AdminDashboard: React.FC = () => {
                         {getCustomerOrders(inspectedCustomer.email).length === 0 ? (
                           <p style={{ color: 'var(--grey-light)', fontSize: '0.85rem', fontStyle: 'italic' }}>No products purchased.</p>
                         ) : (
-                          <div style={{ maxHeight: '180px', overflowY: 'auto' }}>
+                          <div className="admin-table-wrapper" style={{ maxHeight: '180px', overflowY: 'auto' }}>
                             <table className="admin-table" style={{ fontSize: '0.8rem' }}>
                               <thead>
                                 <tr>
@@ -1219,7 +1230,7 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Support Ticket Summary Counters */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobileGrid ? '1fr' : 'repeat(3, 1fr)', gap: '20px', marginBottom: '30px' }}>
                   <div className="glass-panel" style={{ padding: '20px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Complaints</span>
                     <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '8px 0 0 0' }}>{tickets.length}</h3>

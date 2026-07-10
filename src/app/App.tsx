@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AppProvider, useApp } from './providers';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-
 // Pages
 import { LandingPage, OurStoryPage, ContactPage } from '../features/landing';
 import { ShopPage } from '../features/shop/ShopPage';
